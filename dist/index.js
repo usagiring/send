@@ -26,7 +26,7 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 ));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 var __async = (__this, __arguments, generator) => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve2, reject) => {
     var fulfilled = (value) => {
       try {
         step(generator.next(value));
@@ -41,7 +41,7 @@ var __async = (__this, __arguments, generator) => {
         reject(e);
       }
     };
-    var step = (x) => x.done ? resolve(x.value) : Promise.resolve(x.value).then(fulfilled, rejected);
+    var step = (x) => x.done ? resolve2(x.value) : Promise.resolve(x.value).then(fulfilled, rejected);
     step((generator = generator.apply(__this, __arguments)).next());
   });
 };
@@ -57,7 +57,7 @@ module.exports = __toCommonJS(src_exports);
 var import_node_fs = __toESM(require("fs"));
 var import_promises2 = __toESM(require("fs/promises"));
 var import_node_path2 = __toESM(require("path"));
-var import_resolve_path = __toESM(require("resolve-path"));
+var import_path = require("path");
 var import_http_errors = __toESM(require("http-errors"));
 
 // src/send.utils.ts
@@ -115,7 +115,7 @@ function send(_0, _1) {
     }
     if (index && trailingSlash)
       filePath += index;
-    filePath = (0, import_resolve_path.default)(root, filePath);
+    filePath = (0, import_path.normalize)((0, import_path.join)((0, import_path.resolve)(root), filePath));
     if (!hidden && isPathHidden(root, filePath))
       return;
     let encodingExt = "";

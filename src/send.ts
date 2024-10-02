@@ -4,7 +4,7 @@
 import fs from 'node:fs';
 import asyncFs from 'node:fs/promises';
 import path from 'node:path';
-import safeResolvePath from 'resolve-path';
+import { normalize, join, resolve } from 'path';
 import createError from 'http-errors';
 import type {SendOptions, ParameterizedContext} from './send.types';
 import {isPathExists, isPathHidden, getFileType} from './send.utils';
@@ -52,7 +52,7 @@ export async function send(
 
   // index file support
   if (index && trailingSlash) filePath += index;
-  filePath = safeResolvePath(root, filePath);
+  filePath = normalize(join(resolve(root), filePath))
 
   // hidden file support, ignore
   if (!hidden && isPathHidden(root, filePath)) return;
